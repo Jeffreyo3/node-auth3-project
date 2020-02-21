@@ -14,11 +14,10 @@ function findByName(username) {
         .where({ username: username });
 }
 
-function addUser(user) {
-    db('users')
-        .insert(user)
-    const { id } = findByName(user.username)
-    return findUserById(id)
+async function addUser(user) {
+    const [id] = await db('users').insert(user);
+
+    return findUserById(id);
 }
 
 function findUsers() {
