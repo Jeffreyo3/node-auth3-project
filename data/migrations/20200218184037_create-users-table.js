@@ -8,8 +8,6 @@ exports.up = function (knex) {
                 .unique();
             tbl.string('password', 128)
                 .notNullable();
-            tbl.string('role', 255)
-                .notNullable();
         })
     )
 };
