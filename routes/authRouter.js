@@ -19,8 +19,8 @@ router.post('/register', (req, res) => {
             const token = getToken(saved);
             res.status(201).json({ user: saved, token: token })
         })
-        .catch(error => {
-            res.status(500).json(error);
+        .catch(err => {
+            res.status(500).json({ error: err.message });
         });
 });
 
@@ -49,7 +49,7 @@ function getToken(user) {
         roles: ["Student"]
     };
     const options = { expiresIn: "1h" };
-    const token = jwt.sign(tokenPayload, secrets.jwtSecret, options);
+    const token = jwt.sign(tokenPayload, secret.jwtSecret, options);
 
     return token;
 }
