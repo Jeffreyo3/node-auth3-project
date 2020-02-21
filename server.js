@@ -1,8 +1,3 @@
-// Import secret to use for JWT
-const secret = require('./config/secrets')
-// User must create a config folder containing a file 
-// secrets.js must contain an object with the secret key titled jwtSecret
-
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -33,14 +28,14 @@ server.get('/token', (req, res) => {
         username: "jeffreyo3",
         game: "RocketLeague"
     };
-
+    const secret = "testing"
     const options = {
         expiresIn: "2h"
     };
 
-    const token = jwt.sign(tokenPayload, secrets.jwtSecret, options);
+    const token = jwt.sign(tokenPayload, secret, options);
 
-    res.json(token);
+    res.status(200).json(token);
 });
 
 module.exports = server;

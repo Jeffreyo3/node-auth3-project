@@ -1,7 +1,11 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secrets = require('../config/secrets');
+
+// Import secret to use for JWT
+const secret = require('../config/secrets')
+// User must create a config folder containing a file 
+// secrets.js must contain an object with the secret key titled jwtSecret
 
 const Users = require('../models/userModel');
 
@@ -11,9 +15,9 @@ router.post('/register', (req, res) => {
     user.password = hash;
 
     Users.addUser(user)
-        .then(user => {
-            const token = getToken(user);
-            res.status(201).json({ user: user, token: token })
+        .then(saved => {
+            const token = getToken(saved);
+            res.status(201).json({ user: saved, token: token })
         })
         .catch(error => {
             res.status(500).json(error);
@@ -49,3 +53,5 @@ function getToken(user) {
 
     return token;
 }
+
+module.exports = router;

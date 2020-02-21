@@ -1,17 +1,12 @@
 const db = require('../data/dbConfig');
 
 module.exports = {
-    // register,
     addUser,
     findUsers,
     findByName,
     findUserById
 }
 
-// function register(user) {
-//     return db('users')
-//         .insert(user);
-// }
 
 function findByName(username) {
     return db('users')
@@ -20,9 +15,10 @@ function findByName(username) {
 }
 
 function addUser(user) {
-    const [id] = await db('users').insert(user)
-
-    return findById(id)
+    db('users')
+        .insert(user)
+    const { id } = findByName(user.username)
+    return findUserById(id)
 }
 
 function findUsers() {
