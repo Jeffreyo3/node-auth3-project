@@ -4,7 +4,7 @@ module.exports = {
     // register,
     addUser,
     findUsers,
-    // findByName,
+    findByName,
     findUserById
 }
 
@@ -13,11 +13,12 @@ module.exports = {
 //         .insert(user);
 // }
 
-// function findByName(username) {
-//     return db('users')
-//         .select('id', 'username', 'password')
-//         .where({ username: username });
-// }
+function findByName(username) {
+    return db('users')
+        .select('id', 'username', 'password')
+        .where({ username: username });
+}
+
 function addUser(user) {
     const [id] = await db('users').insert(user)
 
